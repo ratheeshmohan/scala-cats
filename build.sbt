@@ -1,7 +1,7 @@
 name := "cats-learner"
 version := "0.0.1-SNAPSHOT"
 
-scalaVersion := "2.12.7"
+scalaVersion := "2.12.8"
 
 scalacOptions ++= Seq(
   "-encoding", "UTF-8",   // source files are in UTF-8
@@ -15,6 +15,7 @@ scalacOptions ++= Seq(
 "-language:implicitConversions",
  "-language:existentials",
 "-language:postfixOps")
+
 
 
 libraryDependencies += "org.typelevel" %% "cats-core" % "1.4.0"

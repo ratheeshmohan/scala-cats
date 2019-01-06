@@ -111,4 +111,9 @@ object Main extends App {
 
   val res = intSetMonoid.combine(Set(1, 2), Set(3, 4))
   println(res)
+
+  import cats.Semigroup
+  import cats.instances.int._
+  import cats.instances.function._
+  println(Semigroup[Int => Int].combine(_ + 9, _ * 10).apply(6))
 }

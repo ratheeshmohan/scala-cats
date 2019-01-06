@@ -12,17 +12,29 @@ object Main extends App {
 
   println(res)
 
-  /*
-  case class Cat(name: String, born: Int, color: String)
 
-  val catOp = (
+  case class Rat(name: String, born: Int, color: String)
+
+  val ratOp = (
     Option("Garfield"),
     Option(1978),
     Option("Orange & black")
-  ).mapN(Cat.apply)
+  ).mapN(Rat.apply)
 
-  println(catOp)
-*/
+  println(ratOp)
+
+
+  import cats.data.NonEmptyVector
+  import cats.syntax.validated._ // for valid and invalid
+
+  (
+    NonEmptyVector.of("Error 1").invalid[Int],
+    NonEmptyVector.of("Error 2").invalid[Int]
+  ).tupled
+
+
+  import cats.data.Validated
+
 
   case class Cat(
                   name: String,
@@ -41,8 +53,8 @@ object Main extends App {
   import cats.instances.string._
   import cats.instances.int._
   import cats.instances.list._
-  import cats.syntax.apply._         // for imapN
-  import cats.instances.invariant._  // for Semigroupal
+  import cats.syntax.apply._ // for imapN
+  import cats.instances.invariant._ // for Semigroupal
 
   implicit val catMonoid: Monoid[Cat] = (
     Monoid[String],
@@ -65,13 +77,12 @@ object Main extends App {
   type AllErrorsOr[A] = Validated[List[String], A]
 
   val res2 = Semigroupal[AllErrorsOr].product(
-    Validated.invalid(List("Error 1","w")),
+    Validated.invalid(List("Error 1", "w")),
     Validated.invalid(List("Error 2")))
   println(res2)
 
-  val res3 = (Validated.invalid(List("Error 1", "r")),Validated.invalid(List("Error 9")),
+  val res3 = (Validated.invalid(List("Error 1", "r")), Validated.invalid(List("Error 9")),
     Validated.invalid(List("Error 2"))).tupled
   println(res3)
-
 
 }
